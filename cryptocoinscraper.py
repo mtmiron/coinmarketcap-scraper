@@ -7,6 +7,7 @@ import abc
 import collections
 import json
 import logging
+import datetime
 
 import pandas as pd
 from pyquery import PyQuery
@@ -23,7 +24,8 @@ CryptoCoin = collections.namedtuple('CryptoCoin', ['name', 'symbol',
                                                    'percentChange24h',
                                                    'percentChange7d',
                                                    'marketCap',
-                                                   'volume24h'])
+                                                   'volume24h',
+                                                   'datetime'])
 
 
 class Scraper(abc.ABC):
@@ -111,10 +113,11 @@ class CoinMarketCap(Scraper):
 
             cryptocoin = CryptoCoin(name, symbol, price,
                                     circulatingSupply, percentChange24h,
-                                    percentChange7d, marketCap, volume24h)
+                                    percentChange7d, marketCap, volume24h,
+                                    datetime.datetime.now())
             coins.append(cryptocoin)
 
-        return pd.DataFrame(coins) 
+        return pd.DataFrame(coins)
 
 
 # tests
