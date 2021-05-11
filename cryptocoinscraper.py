@@ -2,8 +2,6 @@ import abc
 import collections
 import json
 import logging
-import pprint
-import sys
 
 import pandas as pd
 from pyquery import PyQuery
