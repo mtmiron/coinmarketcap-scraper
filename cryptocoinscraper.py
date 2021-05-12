@@ -72,11 +72,14 @@ class CoinMarketCap(Scraper):
         super().__init__([self.URL])
 
     def parse_html(self, html: str) -> pd.DataFrame:
+        with open("page.html", "wb") as f:
+            f.write(html)
         pq = PyQuery(html)
         elems = pq('script#__NEXT_DATA__')
         if len(elems) == 0:
             raise ValueError("unrecognized HTML structure")
 
+        print(elems[0].text)
         outer_data = json.loads(elems[0].text)
         try:
             outer_data = outer_data['props']['initialState']['cryptocurrency']
@@ -122,7 +125,7 @@ class CoinMarketCap(Scraper):
     def to_dataframe(self) -> pd.DataFrame:
         """
         Convenience method to return a Pandas DataFrame in one line.
-        
+
         Returns:
             A Pandas DataFrame of the current market data.
         """

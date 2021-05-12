@@ -7,7 +7,7 @@ import logging
 
 import pandas as pd
 import sqlalchemy
-from sqlalchemy import Column, Float, ForeignKey, Integer, String, Table, Time
+from sqlalchemy import Column, Float, ForeignKey, Integer, String, Time
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 
 import cryptocoinscraper
@@ -45,7 +45,7 @@ class MarketData(Base):
     datetime = Column(Time)
 
 
-def insert_dataframe(df: pd.DataFrame, filename:str):
+def insert_dataframe(df: pd.DataFrame, filename: str):
     """
     Insert a Pandas DataFrame into the database.
 
@@ -83,7 +83,7 @@ def get_engine(filename=None):
     if engine is None:
         engine = sqlalchemy.create_engine("sqlite+pysqlite:///{}".format(filename))
     elif filename is not None:
-        logger.warning("ignoring the provided filename in get_engine()".format(filename))
+        logger.warning("ignoring the provided filename in get_engine(): {}".format(filename))
     return engine
 
 
@@ -93,6 +93,6 @@ if __name__ == '__main__':
     df = scraper.to_dataframe()
 
     insert_dataframe(df, ":memory:")
-    
+
     print("Tests passed.")
     sys.exit(os.EX_OK)
