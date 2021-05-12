@@ -1,3 +1,5 @@
+[![Tests](https://github.com/mtmiron/coinmarketcap-scraper/actions/workflows/pytest.yml/badge.svg)](https://github.com/mtmiron/coinmarketcap-scraper/actions/workflows/pytest.yml)
+
 # Crypto Currency Scraper
 
 A simple utility to scrape the data from [CoinMarketCap](https://coinmarketcap.com) and store it in CSV and/or SQLite3 files.  A new CSV file will be written every time the program is run, but an existing database will be updated with new data/timestamps.
