@@ -1,4 +1,5 @@
 import cryptocoinscraper
+import sql
 
 
 def test_parser():
@@ -11,3 +12,10 @@ def test_parser():
     assert df.iloc[0]["price"] == 57112.72315791473
     assert df.iloc[0]['volume24h'] == 60852514045.49726
     assert df.iloc[0]['percentChange7d'] == 3.48917157
+
+
+def test_database():
+    scraper = cryptocoinscraper.CoinMarketCap()
+    df = scraper.to_dataframe()
+
+    sql.insert_dataframe(df, ":memory:")
