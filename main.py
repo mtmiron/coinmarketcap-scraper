@@ -37,7 +37,4 @@ def handle_cli(args):
 if __name__ == "__main__":
     parser = get_parser()
     args = parser.parse_args()
-    if args.out == "-":
-        args.out = None
-
     handle_cli(args)
