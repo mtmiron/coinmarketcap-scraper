@@ -119,6 +119,18 @@ class CoinMarketCap(Scraper):
 
         return pd.DataFrame(coins)
 
+    def to_dataframe(self) -> pd.DataFrame:
+        """
+        Convenience method to return a Pandas DataFrame in one line.
+        
+        Returns:
+            A Pandas DataFrame of the current market data.
+        """
+        dfs = []
+        for page in self.pages():
+            dfs.append(self.parse_html(page))
+        return pd.concat(dfs)
+
 
 # tests
 if __name__ == "__main__":
