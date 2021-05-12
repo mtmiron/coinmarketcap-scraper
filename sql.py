@@ -1,12 +1,20 @@
 """
 Provides database functionality for CryptoCoinScraper.
 """
+import os
+import sys
+import logging
+
+import pandas as pd
 import sqlalchemy
 from sqlalchemy import Column, Float, ForeignKey, Integer, String, Table, Time
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 
 import cryptocoinscraper
 
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 Base = declarative_base()
 Session = sessionmaker()
@@ -37,10 +45,16 @@ class MarketData(Base):
     datetime = Column(Time)
 
 
+def insert_dataframe(df: pd.DataFrame, filename:str):
+    """
+    Insert a Pandas DataFrame into the database.
 
-def insert_dataframe(df, filename):
-    Base.metadata.create_all(get_engine())
-    with Session(bind=get_engine(filename)) as session:
+    Args:
+        df (pd.DataFrame): the DataFrame to get data from.
+        filename (str): path to the database.
+    """
+    Base.metadata.create_all(get_engine(filename))
+    with Session(bind=get_engine()) as session:
         for i in range(len(df)):
             row = df.iloc[i]
             coin = session.query(CryptoCurrency).filter_by(name=row.name, symbol=row.symbol).first()
@@ -59,15 +73,26 @@ def insert_dataframe(df, filename):
 
         session.commit()
 
-def get_engine(file="database.sql"):
+
+def get_engine(filename=None):
+    """
+    Get a SQLAlchemy engine; note that subsequent calls will use the
+    first `filename` argument that this function received.
+    """
     global engine
     if engine is None:
-        engine = sqlalchemy.create_engine("sqlite+pysqlite:///{}".format(file))
+        engine = sqlalchemy.create_engine("sqlite+pysqlite:///{}".format(filename))
+    elif filename is not None:
+        logger.warning("ignoring the provided filename in get_engine()".format(filename))
     return engine
 
 
+# simple tests
 if __name__ == '__main__':
     scraper = cryptocoinscraper.CoinMarketCap()
     df = scraper.to_dataframe()
-    insert_dataframe(df, "database.sql")
 
+    insert_dataframe(df, ":memory:")
+    
+    print("Tests passed.")
+    sys.exit(os.EX_OK)
