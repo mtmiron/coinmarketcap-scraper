@@ -19,8 +19,8 @@ logger = logging.getLogger(__name__)
 
 
 CryptoCoin = collections.namedtuple('CryptoCoin', ['name', 'symbol',
-                                                   'circulatingSupply',
                                                    'price',
+                                                   'circulatingSupply',
                                                    'percentChange24h',
                                                    'percentChange7d',
                                                    'marketCap',
