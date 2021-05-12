@@ -57,9 +57,9 @@ def insert_dataframe(df: pd.DataFrame, filename:str):
     with Session(bind=get_engine()) as session:
         for i in range(len(df)):
             row = df.iloc[i]
-            coin = session.query(CryptoCurrency).filter_by(name=row.name, symbol=row.symbol).first()
+            coin = session.query(CryptoCurrency).filter_by(name=row['name'], symbol=row['symbol']).first()
             if coin is None:
-                coin = CryptoCurrency(name=row.name, symbol=row.symbol)
+                coin = CryptoCurrency(name=row['name'], symbol=row['symbol'])
                 session.add(coin)
                 session.commit()
 
