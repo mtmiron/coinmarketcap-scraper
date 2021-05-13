@@ -2,6 +2,8 @@
 
 # Crypto Currency Scraper
 
+*N.B.: this was actually a coding assessment as part of an interviewing process; normally I wouldn't release details of it, let alone the code, but in this instance a repository was requested by the interviewer*
+
 A simple utility to scrape the data from [CoinMarketCap](https://coinmarketcap.com) and store it in CSV and/or SQLite3 files.  A new CSV file will be written every time the program is run, but an existing database will be updated with new data/timestamps.
 
 # Usage
