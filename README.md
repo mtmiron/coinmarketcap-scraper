@@ -32,7 +32,7 @@ $ python3 setup.py install --user
 
 # Comments
 
-It would be pretty trivial to change the database from SQLite3 to MySQL or whatever else is desired; the schema can be seen below.
+It would be pretty trivial to change the database from SQLite3 to MySQL or whatever else is desired (`sql.py` uses SQLAlchemy); the simple SQLite3 schema can be seen below.
 
 ```
 CREATE TABLE cryptocurrencies (
