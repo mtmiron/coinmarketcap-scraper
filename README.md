@@ -10,7 +10,7 @@ Make sure all requirements have been installed by running the command `pip insta
 Then:
 
 ```
-usage: main.py [-h] [-o OUT] [-s SQL]
+usage: coinmarketcap-scraper.py [-h] [-o OUT] [-s SQL]
 
 CoinMarketCap scraper.
 
@@ -20,6 +20,13 @@ optional arguments:
   -s SQL, --sql SQL  sqlite3 database to update (default is don't update any
                      database).
 ```
+
+Alternatively, it can be installed via (note, though, that `pip install -r requirements.txt` will still be a necessary prerequisite):
+
+```
+$ python3 setup.py install --user
+```
+
 
 # Comments
 
